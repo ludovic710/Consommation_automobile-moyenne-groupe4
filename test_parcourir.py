@@ -3,7 +3,7 @@ from Calcul_Consommation_moyenne_Voiture import Voiture
 
 #Fixture 
 @pytest.fixture
-def the_voiture();
+def the_voiture():
     return Voiture("Peugeot", "208")
 
 # Test pour vérifier l'augmentation du kilométrage
