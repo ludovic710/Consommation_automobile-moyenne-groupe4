@@ -6,7 +6,7 @@ on:
       - '**/*.py'  # Exécute le workflow uniquement lorsque des fichiers Python sont modifiés dans une pull request
   push:
     branches:
-      - main  # Exécute le workflow uniquement lorsque des modifications sont apportées à la branche principale
+      - main  # Exécute le workflow uniquement lorsque des modifications sont apportées à la branche principal
 
 jobs:
   black-format:
