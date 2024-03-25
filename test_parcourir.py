@@ -6,11 +6,10 @@ from Calcul_Consommation_moyenne_Voiture import Voiture
 def the_voiture():
     return Voiture("Peugeot", "208")
 
-# Test pour vérifier l'augmentation du kilométrage
+# test pour vérifier l'augmentation du kilométrage
 def test_parcourir_augmente_kilometrage(the_voiture):
      the_voiture.parcourir(100)
      assert the_voiture.kilometrage == 100 ## vérifie si bien égal à 100
-
 
 #Test pour vérifier l'ajout correct du carburant
 def test_ajouter_carburant_augmente(the_voiture):
