@@ -1,0 +1,31 @@
+name: Black Formatting
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py'  # Exécute le workflow uniquement lorsque des fichiers Python sont modifiés dans une pull request
+  push:
+    branches:
+      - main  # Exécute le workflow uniquement lorsque des modifications sont apportées à la branche principale
+
+jobs:
+  black-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install black
+        run: python -m pip install --upgrade black
+
+      - name: Run Black formatting
+        run: black . --exclude venv  # Formate tous les fichiers Python, en excluant le dossier venv s'il existe
+
+      - name: Check for changes after formatting
+        run: git diff --exit-code  # Vérifie si des changements ont été apportés par Black
