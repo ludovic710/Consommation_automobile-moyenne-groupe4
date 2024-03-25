@@ -1,31 +1,28 @@
-name: Black Formatting
-
+name: Format code with Black
+ 
 on:
-  pull_request:
-    paths:
-      - '**/*.py'  # Exécute le workflow uniquement lorsque des fichiers Python sont modifiés dans une pull request
   push:
-    branches:
-      - main  # Exécute le workflow uniquement lorsque des modifications sont apportées à la branche principal
-
+    branches: [ main ]
+ 
 jobs:
-  black-format:
+  format:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+ 
+      - uses: actions/setup-python@v4
         with:
-          python-version: 3.8
-
-      - name: Install black
-        run: python -m pip install --upgrade black
-
-      - name: Run Black formatting
-        run: black . --exclude venv  # Formate tous les fichiers Python, en excluant le dossier venv s'il existe
-
-      - name: Check for changes after formatting
-        run: git diff --exit-code  # Vérifie si des changements ont été apportés par Black
+          python-version: '3.9'  # Ajuster la version Python si nécessaire
+ 
+      - run: pip install black
+ 
+      - run: black .
+ 
+      - name: Commit changes if needed
+        uses: Endymion/commit-action@v2
+        with:
+          message: "Format code with Black"
+          branch: main
+          push: ${{ github.event.inputs.push || false }}
+          # Optionnel: Utiliser un fichier de configuration Black spécifique
+          # config_path: .black.yml
